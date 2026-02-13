@@ -2,7 +2,7 @@
 import React from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 
-const StatsCard = ({ title, value, change, trend, color }) => {
+const StatsCard = ({ title, value, change, trend, icon: Icon, color }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
