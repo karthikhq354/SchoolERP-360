@@ -5,9 +5,9 @@ import { Bell, Search, User } from 'lucide-react';
 const Header = () => {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-end">
         {/* Search Bar */}
-        <div className="flex-1 max-w-xl">
+        {/* <div className="flex-1 max-w-xl">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-gray-400" />
@@ -18,7 +18,7 @@ const Header = () => {
               placeholder="Search users, students, teachers..."
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Right Section */}
         <div className="flex items-center gap-4">

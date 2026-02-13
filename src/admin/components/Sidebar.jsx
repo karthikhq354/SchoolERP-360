@@ -7,7 +7,6 @@ import {
   Users, 
   UserCircle, 
   GraduationCapIcon,
-  Settings,
   LogOut,
   ChevronRight
 } from 'lucide-react';
@@ -45,11 +44,6 @@ const Sidebar = () => {
       name: 'Staff',
       icon: Users,
       path: '/admin/staff'
-    },
-    {
-      name: 'Settings',
-      icon: Settings,
-      path: '/admin/settings'
     },
   ];
 

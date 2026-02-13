@@ -59,14 +59,14 @@ const FilterBar = ({
 
         {/* Action Buttons */}
         <div className="flex gap-2">
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+          {/* <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             <Filter className="w-4 h-4" />
             <span className="hidden sm:inline">Filter</span>
           </button>
           <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             <Download className="w-4 h-4" />
             <span className="hidden sm:inline">Export</span>
-          </button>
+          </button> */}
           <button 
             onClick={onAddNew}
             className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition-all"
