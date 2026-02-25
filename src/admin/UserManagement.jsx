@@ -1,14 +1,14 @@
 // src/admin/UserManagement.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UsersTable from './components/UsersTable';
 import UserModal from './components/UserModal';
 import DeleteConfirmModal from './components/DeleteConfirmModal';
 import FilterBar from './components/FilterBar';
-import { mockUsers } from './data/mockData';
+import { getUsers, addUser, updateUser, deleteUser } from './data/mockData';
 
 const UserManagement = () => {
-  const [users, setUsers] = useState(mockUsers);
-  const [filteredUsers, setFilteredUsers] = useState(mockUsers);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -18,8 +18,18 @@ const UserManagement = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [userToDelete, setUserToDelete] = useState(null);
 
+  // Load users from localStorage on mount
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = () => {
+    const allUsers = getUsers();
+    setUsers(allUsers);
+  };
+
   // Filter users
-  React.useEffect(() => {
+  useEffect(() => {
     let filtered = users;
 
     // Search filter
@@ -58,7 +68,6 @@ const UserManagement = () => {
 
   // View user
   const handleView = (user) => {
-    // Implement view details logic
     alert(`View details for ${user.name}`);
   };
 
@@ -69,20 +78,20 @@ const UserManagement = () => {
   };
 
   const confirmDelete = (userId) => {
-    setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+    deleteUser(userId);
+    loadUsers(); // Reload from localStorage
   };
 
   // Save user (add or update)
   const handleSaveUser = (userData) => {
     if (selectedUser) {
       // Update existing user
-      setUsers(prevUsers => 
-        prevUsers.map(user => user.id === userData.id ? userData : user)
-      );
+      updateUser(userData);
     } else {
       // Add new user
-      setUsers(prevUsers => [...prevUsers, userData]);
+      addUser(userData);
     }
+    loadUsers(); // Reload from localStorage
   };
 
   return (
