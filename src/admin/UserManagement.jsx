@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import UsersTable from './components/UsersTable';
 import UserModal from './components/UserModal';
 import DeleteConfirmModal from './components/DeleteConfirmModal';
+import ViewUserModal from './components/ViewUserModal';   // NEW
 import FilterBar from './components/FilterBar';
 import { getUsers, addUser, updateUser, deleteUser } from './data/mockData';
 
@@ -12,13 +13,16 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // NEW
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [userToDelete, setUserToDelete] = useState(null);
 
-  // Load users from localStorage on mount
+  // Load users
   useEffect(() => {
     loadUsers();
   }, []);
@@ -28,50 +32,49 @@ const UserManagement = () => {
     setUsers(allUsers);
   };
 
-  // Filter users
+  // Filtering
   useEffect(() => {
     let filtered = users;
 
-    // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(user => 
+      filtered = filtered.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.phone.includes(searchTerm)
       );
     }
 
-    // Role filter
     if (roleFilter !== 'all') {
       filtered = filtered.filter(user => user.role === roleFilter);
     }
 
-    // Status filter
     if (statusFilter !== 'all') {
       filtered = filtered.filter(user => user.status === statusFilter);
     }
 
     setFilteredUsers(filtered);
+
   }, [searchTerm, roleFilter, statusFilter, users]);
 
-  // Add new user
+  // Add
   const handleAddNew = () => {
     setSelectedUser(null);
     setIsModalOpen(true);
   };
 
-  // Edit user
+  // Edit
   const handleEdit = (user) => {
     setSelectedUser(user);
     setIsModalOpen(true);
   };
 
-  // View user
+  // View (UPDATED)
   const handleView = (user) => {
-    alert(`View details for ${user.name}`);
+    setSelectedUser(user);
+    setIsViewModalOpen(true);
   };
 
-  // Delete user
+  // Delete
   const handleDelete = (user) => {
     setUserToDelete(user);
     setIsDeleteModalOpen(true);
@@ -79,30 +82,33 @@ const UserManagement = () => {
 
   const confirmDelete = (userId) => {
     deleteUser(userId);
-    loadUsers(); // Reload from localStorage
+    loadUsers();
   };
 
-  // Save user (add or update)
+  // Save
   const handleSaveUser = (userData) => {
     if (selectedUser) {
-      // Update existing user
       updateUser(userData);
     } else {
-      // Add new user
       addUser(userData);
     }
-    loadUsers(); // Reload from localStorage
+    loadUsers();
   };
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
+
+      {/* Header */}
       <div>
-        <h1 className="text-3xl font-display font-bold text-gray-900">User Management</h1>
-        <p className="text-gray-600 mt-1">Manage students, teachers, and staff members</p>
+        <h1 className="text-3xl font-display font-bold text-gray-900">
+          User Management
+        </h1>
+        <p className="text-gray-600 mt-1">
+          Manage students, teachers, and staff members
+        </p>
       </div>
 
-      {/* Filter Bar */}
+      {/* Filters */}
       <FilterBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -113,7 +119,7 @@ const UserManagement = () => {
         onAddNew={handleAddNew}
       />
 
-      {/* Users Table */}
+      {/* Table */}
       <UsersTable
         users={filteredUsers}
         onEdit={handleEdit}
@@ -121,7 +127,7 @@ const UserManagement = () => {
         onView={handleView}
       />
 
-      {/* Modals */}
+      {/* Add / Edit Modal */}
       <UserModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -129,12 +135,21 @@ const UserManagement = () => {
         onSave={handleSaveUser}
       />
 
+      {/* View Modal (NEW) */}
+      <ViewUserModal
+        isOpen={isViewModalOpen}
+        onClose={() => setIsViewModalOpen(false)}
+        user={selectedUser}
+      />
+
+      {/* Delete Modal */}
       <DeleteConfirmModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         user={userToDelete}
         onConfirm={confirmDelete}
       />
+
     </div>
   );
 };

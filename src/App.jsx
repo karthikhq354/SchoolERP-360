@@ -17,6 +17,7 @@ import AdminLogin from './admin/Login';
 import AdminLayout from './admin/Layout';
 import Dashboard from './admin/Dashboard';
 import UserManagement from './admin/UserManagement';
+import Settings from "./admin/Settings";
 
 // Protected Route Component for Admin
 const ProtectedRoute = ({ children }) => {
@@ -91,12 +92,7 @@ function App() {
           <Route path="staff" element={<UserManagement />} />
           
           {/* Settings Route (placeholder) */}
-          <Route path="settings" element={
-            <div className="p-6">
-              <h1 className="text-2xl font-bold">Settings</h1>
-              <p className="text-gray-600 mt-2">Settings page coming soon...</p>
-            </div>
-          } />
+          <Route path="/admin/settings" element={<Settings />} />
         </Route>
 
         {/* 404 Not Found Route */}

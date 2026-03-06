@@ -194,8 +194,12 @@ const Dashboard = () => {
     }, 100);
   };
 
-  const handleViewReports = () => {
-    alert('Reports feature coming soon!');
+  const handleAddStaff = () => {
+    navigate('/admin/staff');
+    setTimeout(() => {
+      const addButton = document.querySelector('[data-add-user]');
+      if (addButton) addButton.click();
+    }, 100);
   };
 
   const handleSettings = () => {
@@ -251,14 +255,14 @@ const Dashboard = () => {
 
           {/* View Reports */}
           <button 
-            onClick={handleViewReports}
+            onClick={handleAddStaff}
             className="p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-left group"
           >
             <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4 group-hover:bg-green-500 transition-colors">
-              <FileText className="w-6 h-6 text-green-600 group-hover:text-white" />
+              <Users className="w-6 h-6 text-green-600 group-hover:text-white" />
             </div>
-            <div className="font-semibold text-gray-900 mb-1">View Reports</div>
-            <div className="text-sm text-gray-500">Generate reports</div>
+            <div className="font-semibold text-gray-900 mb-1">Add Staff</div>
+            <div className="text-sm text-gray-500">Register new Staff</div>
           </button>
 
           {/* Settings */}

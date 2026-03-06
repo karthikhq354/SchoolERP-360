@@ -5,7 +5,8 @@ import {
   GraduationCap, 
   LayoutDashboard, 
   Users, 
-  UserCircle, 
+  UserCircle,
+  Settings, 
   GraduationCapIcon,
   LogOut,
   ChevronRight
@@ -44,6 +45,11 @@ const Sidebar = () => {
       name: 'Staff',
       icon: Users,
       path: '/admin/staff'
+    },
+    {
+      name: 'Settings',
+      icon: Settings,
+      path: '/admin/settings'
     },
   ];
 
