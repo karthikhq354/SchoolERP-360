@@ -26,6 +26,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const feesRoutes = require('./routes/feesRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const landingRoutes = require('./routes/landingRoutes');
 
 // Initialize Express app
 const app = express();
@@ -94,6 +95,7 @@ app.use(`${API}/admins`,      adminRoutes);
 app.use(`${API}/attendance`,  attendanceRoutes);
 app.use(`${API}/fees`,        feesRoutes);
 app.use(`${API}/dashboard`,   dashboardRoutes);
+app.use(`${API}/landing`, landingRoutes);
 
 // ─── 404 Handler ──────────────────────────────────────────────────
 app.use('*', (req, res) => {
